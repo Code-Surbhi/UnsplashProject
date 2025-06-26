@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core'; // Ensure OnDestroy is imported
+import { Component, OnInit, OnDestroy } from '@angular/core'; 
 import { CommonModule } from '@angular/common';
 import { RouterOutlet, ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -26,7 +26,7 @@ export class AppComponent implements OnInit, OnDestroy {
   private canvas: HTMLCanvasElement | null = null;
   private ctx: CanvasRenderingContext2D | null = null;
 
-  private unsplashAppId: string = '0aiYwSKwVqLwqAa2pCh1mLOYZHpeggvH0nTufFm-V8o'; // Ensure this matches server.js
+  private unsplashAppId: string = '0aiYwSKwVqLwqAa2pCh1mLOYZHpeggvH0nTufFm-V8o';
   private redirectUri: string = 'http://localhost:4200/callback.html';
   private backendUrl: string = 'http://localhost:3000';
 

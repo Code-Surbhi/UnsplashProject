@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Logging in...</title>
+</head>
+<body>
+  <p>Logging you in, please wait...</p>
+
+  <script>
+    const code = new URLSearchParams(window.location.search).get('code');
+    console.log("OAuth code received:", code);
+
+    if (code) {
+      fetch('http://localhost:3000/callback', {  // ✅ CORRECTED LINE
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code })
+      })
+      .then(res => res.json())
+      .then(data => {
+        console.log("Token response from server:", data);
+        if (data.accessToken) {  // ✅ match the backend's `res.json({ accessToken })`
+          window.opener.postMessage({ access_token: data.accessToken }, 'http://localhost:4200');
+          window.close();
+        } else {
+          document.body.innerHTML = "Login failed: No access token received.";
+        }
+      })
+      .catch(err => {
+        console.error("Token exchange failed:", err);
+        document.body.innerHTML = "Login failed: Server error.";
+      });
+    } else {
+      document.body.innerHTML = "Login failed: No code provided in URL.";
+    }
+  </script>
+</body>
+</html>
